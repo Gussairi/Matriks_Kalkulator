@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,114 +25,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            MatrixCalculatorApp()
             MatrixCalculatorTheme {
                 MatrixCalculatorApp()
             }
         }
     }
 }
-
-//@Composable
-//fun MatrixCalculatorApp() {
-//    var ordo by remember { mutableStateOf(3) }
-//    var operation by remember { mutableStateOf("Penjumlahan") }
-////    var matrix1 by remember { mutableStateOf(Array(3) { FloatArray(3) }) }
-////    var matrix2 by remember { mutableStateOf(Array(3) { FloatArray(3) }) }
-//    var matrix1 by remember { mutableStateOf(List(ordo) { List(ordo) { "" } }) }
-//    var matrix2 by remember { mutableStateOf(List(ordo) { List(ordo) { "" } }) }
-//    var result by remember { mutableStateOf<String?>(null) }
-//
-//    Column(
-//        modifier = Modifier.fillMaxSize().padding(16.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        // Pilihan Ordo Matriks
-//        Row(verticalAlignment = Alignment.CenterVertically) {
-//            Text("Pilih Ordo Matriks:", Modifier.padding(end = 8.dp))
-//            DropdownMenuBox(
-//                options = listOf(2, 3, 4, 5, 6, 7),
-//                selectedOption = ordo,
-//                onOptionSelected = {
-//                    ordo = it
-////                    matrix1 = Array(ordo) { FloatArray(ordo) }
-////                    matrix2 = Array(ordo) { FloatArray(ordo) }
-//                    matrix1 = List(ordo) { List(ordo) { "" }}
-//                    matrix2 = List(ordo) { List(ordo) { "" }}
-//                }
-//            )
-//        }
-//
-//        Spacer(Modifier.height(16.dp))
-//
-//        // Pilihan Operasi
-//        Row(verticalAlignment = Alignment.CenterVertically) {
-//            Text("Pilih Operasi:", Modifier.padding(end = 8.dp))
-//            DropdownMenuBox(
-//                options = listOf("Penjumlahan", "Pengurangan", "Perkalian", "Transpose", "Determinan"),
-//                selectedOption = operation,
-//                onOptionSelected = { operation = it }
-//            )
-//        }
-//
-//        Spacer(Modifier.height(16.dp))
-//
-//        // Input Matriks
-//        Text("Matriks 1:")
-//        MatrixInput(matrix = matrix1, size = ordo, onValueChange = { row, col, value ->
-////            matrix1[row][col] = value
-//            matrix1 = matrix1.toMutableList().apply {
-//                this[row] = this[row].toMutableList().apply {
-//                    this[col] = value
-//                }
-//            }
-//        })
-//
-//        if (operation in listOf("Penjumlahan", "Pengurangan", "Perkalian")) {
-//            Spacer(Modifier.height(16.dp))
-//            Text("Matriks 2:")
-////            MatrixInput(matrix = matrix2, size = ordo, onValueChange = { row, col, value ->
-////                matrix2[row][col] = value
-////            })
-//            MatrixInput(
-//                matrix = matrix2,
-//                size = ordo,
-//                onValueChange = { row, col, value ->
-//                    matrix2 = matrix2.toMutableList().apply {
-//                        this[row] = this[row].toMutableList().apply {
-//                            this[col] = value
-//                        }
-//                    }
-//                }
-//            )
-//
-//        }
-//
-//        Spacer(Modifier.height(16.dp))
-//
-//        // Tombol Hitung
-////        Button(onClick = {
-////            result = calculateMatrix(matrix1, matrix2, ordo, operation)
-////        }) {
-////            Text("Hitung")
-////        }
-//        Button(onClick = {
-//            result = calculateMatrix(matrix1.map { it.toTypedArray() }.toTypedArray(),
-//                matrix2.map { it.toTypedArray() }.toTypedArray(),
-//                ordo,
-//                operation)
-//        }) {
-//            Text("Hitung")
-//        }
-//
-//        Spacer(Modifier.height(16.dp))
-//
-//        // Hasil
-//        result?.let {
-//            Text(it, style = MaterialTheme.typography.h6)
-//        }
-//    }
-//}
 
 @Composable
 fun MatrixCalculatorApp() {
@@ -158,6 +56,7 @@ fun MatrixCalculatorApp() {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(Modifier.height(32.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Pilih Ordo Matriks:", Modifier.padding(end = 8.dp))
                 DropdownMenuBox(
@@ -234,7 +133,7 @@ fun MatrixCalculatorApp() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
-                    elevation = 2.dp
+                    tonalElevation = 2.dp
                 ) {
                     Column(
                         modifier = Modifier
@@ -242,7 +141,7 @@ fun MatrixCalculatorApp() {
                     ) {
                         Text(
                             text = resultText,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 8.dp)
@@ -256,29 +155,6 @@ fun MatrixCalculatorApp() {
         }
     }
 }
-
-//@Composable
-//fun MatrixInput(matrix: Array<FloatArray>, size: Int, onValueChange: (Int, Int, Float) -> Unit) {
-//    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//        for (i in 0 until size) {
-//            Row {
-//                for (j in 0 until size) {
-//                    var text by remember { mutableStateOf(matrix[i][j].toString()) }
-//                    TextField(
-//                        value = text,
-//                        onValueChange = {
-//                            text = it
-//                            val number = it.toFloatOrNull() ?: 0f
-//                            onValueChange(i, j, number)
-//                        },
-//                        modifier = Modifier.size(60.dp).padding(4.dp).border(1.dp, Color.Black),
-//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
 
 @Composable
 fun MatrixInput(
@@ -307,19 +183,21 @@ fun MatrixInput(
                         modifier = Modifier
                             .size(70.dp)
                             .padding(horizontal = 4.dp),
-                        textStyle = MaterialTheme.typography.body2,
+                        textStyle = MaterialTheme.typography.bodyMedium,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number
                         ),
                         singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = MaterialTheme.colors.primary,
-                            unfocusedBorderColor = Color.Gray
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                            cursorColor = MaterialTheme.colorScheme.primary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary
                         ),
                         placeholder = {
                             Text(
                                 text = "0",
-                                style = MaterialTheme.typography.body2,
+                                style = MaterialTheme.typography.bodyMedium,
                                 color = Color.Gray
                             )
                         }
@@ -352,71 +230,6 @@ fun Array<Array<String>>.toFloatMatrix(): Array<FloatArray>? {
         null
     }
 }
-
-
-//fun calculateMatrix(
-//    matrix1: Array<FloatArray>,
-//    matrix2: Array<FloatArray>,
-//    size: Int,
-//    operation: String
-//): String {
-//
-//        return try {
-//            when (operation) {
-//                "Penjumlahan" -> {
-//                    val result = Array(size) { FloatArray(size) }
-//                    for (i in 0 until size) {
-//                        for (j in 0 until size) {
-//                            result[i][j] = matrix1[i][j] + matrix2[i][j]
-//                        }
-//                    }
-//                    "Hasil Penjumlahan:\n${result.contentDeepToString()}"
-//                }
-//                "Pengurangan" -> {
-//                    val result = Array(size) { FloatArray(size) }
-//                    for (i in 0 until size) {
-//                        for (j in 0 until size) {
-//                            result[i][j] = matrix1[i][j] - matrix2[i][j]
-//                        }
-//                    }
-//                    "Hasil Pengurangan:\n${result.contentDeepToString()}"
-//                }
-//                "Perkalian" -> {
-//                    val result = Array(size) { FloatArray(size) }
-//                    for (i in 0 until size) {
-//                        for (j in 0 until size) {
-//                            for (k in 0 until size) {
-//                                result[i][j] += matrix1[i][k] * matrix2[k][j]
-//                            }
-//                        }
-//                    }
-//                    "Hasil Perkalian:\n${result.contentDeepToString()}"
-//                }
-//                "Transpose" -> {
-//                    val result = Array(size) { FloatArray(size) }
-//                    for (i in 0 until size) {
-//                        for (j in 0 until size) {
-//                            result[j][i] = matrix1[i][j]
-//                        }
-//                    }
-//                    "Transpose Matriks:\n${result.contentDeepToString()}"
-//                }
-//                "Determinan" -> {
-//                    if (size == 2) {
-//                        val det = matrix1[0][0] * matrix1[1][1] - matrix1[0][1] * matrix1[1][0]
-//                        "Determinan: ${det.roundToInt()}"
-//                    } else {
-//                        "Determinan hanya untuk matriks 2x2 saat ini."
-//                    }
-//                }
-//                else -> "Operasi tidak valid."
-//            }
-//        } catch (e: Exception) {
-//            "Error: ${e.message}"
-//        }
-//}
-
-
 
 fun calculateMatrix(
     matrix1: Array<Array<String>>,
@@ -480,12 +293,6 @@ fun calculateMatrix(
                 "Transpose Matriks:\n${result.contentDeepToString()}"
             }
             "Determinan" -> {
-//                if (size == 2) {
-//                    val det = numMatrix1[0][0] * numMatrix1[1][1] - numMatrix1[0][1] * numMatrix1[1][0]
-//                    "Determinan: ${det.roundToInt()}"
-//                } else {
-//                    "Determinan hanya untuk matriks 2x2 saat ini."
-//                }
                 try {
                     val det = calculateDeterminant(numMatrix1, size)
                     "Determinan: $det"
@@ -558,12 +365,13 @@ fun <T> DropdownMenuBox(options: List<T>, selectedOption: T, onOptionSelected: (
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             options.forEach { option ->
-                DropdownMenuItem(onClick = {
-                    onOptionSelected(option)
-                    expanded = false
-                }) {
-                    Text(option.toString())
-                }
+                DropdownMenuItem(
+                    text = { Text(option.toString()) },
+                    onClick = {
+                        onOptionSelected(option)
+                        expanded = false
+                    }
+                )
             }
         }
     }
